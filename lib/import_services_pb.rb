@@ -15,6 +15,7 @@ module Proto
       self.service_name = 'proto.Harvester'
 
       rpc :Ver, Void, Version
+      rpc :Import, stream(ImportInput), stream(ImportStats)
     end
 
     Stub = Service.rpc_stub_class

@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require 'protonom'
+require_relative '../lib/protonom'

@@ -14,11 +14,12 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
   add_message "proto.Name" do
     optional :id, :string, 1
     optional :parent, :message, 2, "proto.NameElement"
-    optional :family, :string, 3
-    optional :genus, :string, 4
-    optional :subgenus, :string, 5
-    optional :species, :string, 6
-    optional :author_string, :string, 7
+    optional :hierarchy, :message, 3, "proto.LinnaeanClassification"
+    optional :family, :string, 4
+    optional :genus, :string, 5
+    optional :subgenus, :string, 6
+    optional :species, :string, 7
+    optional :author_string, :string, 8
   end
   add_message "proto.MetaData" do
     optional :is_extinct, :bool, 1
@@ -31,12 +32,13 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     optional :name_guid, :string, 8
   end
   add_message "proto.Taxon" do
-    optional :accepted_name, :message, 1, "proto.AcceptedName"
-    repeated :synonyms, :message, 2, "proto.Synonym"
-    repeated :common_names, :message, 3, "proto.CommonName"
-    repeated :distributions, :message, 4, "proto.Distribution"
-    repeated :references, :message, 5, "proto.Reference"
-    optional :metadata, :message, 6, "proto.MetaData"
+    optional :id, :string, 1
+    optional :accepted_name, :message, 2, "proto.AcceptedName"
+    repeated :synonyms, :message, 3, "proto.Synonym"
+    repeated :common_names, :message, 4, "proto.CommonName"
+    repeated :distributions, :message, 5, "proto.Distribution"
+    repeated :references, :message, 6, "proto.Reference"
+    optional :metadata, :message, 7, "proto.MetaData"
   end
   add_message "proto.AcceptedName" do
     optional :name, :message, 1, "proto.Name"
@@ -92,12 +94,12 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
   end
   add_message "proto.ImportStats" do
     optional :imported_taxa, :int32, 1
-    optional :error, :string, 2
   end
   add_message "proto.Void" do
   end
   add_message "proto.Version" do
     optional :value, :string, 1
+    optional :build, :string, 2
   end
   add_enum "proto.SynonymType" do
     value :HOMOTYPIC, 0
