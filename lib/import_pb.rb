@@ -6,20 +6,24 @@ require 'google/protobuf'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_message "proto.NameElement" do
     optional :id, :string, 1
-    optional :name, :string, 2
+    optional :name_string, :string, 2
     optional :rank, :string, 3
     optional :authorship, :string, 4
-    optional :parent, :message, 5, "proto.NameElement"
+    optional :parent_id, :string, 5
   end
   add_message "proto.Name" do
     optional :id, :string, 1
-    optional :parent, :message, 2, "proto.NameElement"
+    optional :parent_id, :string, 2
     optional :hierarchy, :message, 3, "proto.LinnaeanClassification"
-    optional :family, :string, 4
-    optional :genus, :string, 5
-    optional :subgenus, :string, 6
-    optional :species, :string, 7
-    optional :author_string, :string, 8
+    optional :name_string, :string, 4
+    optional :family, :string, 5
+    optional :genus, :string, 6
+    optional :subgenus, :string, 7
+    optional :species, :string, 8
+    optional :subspecies, :string, 9
+    optional :variety, :string, 10
+    optional :forma, :string, 11
+    optional :author_string, :string, 12
   end
   add_message "proto.MetaData" do
     optional :is_extinct, :bool, 1
@@ -90,7 +94,10 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     optional :source, :string, 5
   end
   add_message "proto.ImportInput" do
-    repeated :taxa, :message, 1, "proto.Taxon"
+    oneof :content do
+      optional :taxon, :message, 1, "proto.Taxon"
+      optional :name_element, :message, 2, "proto.NameElement"
+    end
   end
   add_message "proto.ImportStats" do
     optional :imported_taxa, :int32, 1

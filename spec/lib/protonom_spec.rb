@@ -13,7 +13,7 @@ describe Protonom::Client do
 
   describe '#version' do
     it 'returns version' do
-      ver = subject.version()
+      ver = subject.version
       expect(ver.value).to match(/^v\d/)
     end
   end

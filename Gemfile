@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'bundler', '~> 2.0'
 gem 'byebug', '~> 10.0'
+gem 'dwca_hunter', '~> 0.5'
 gem 'grpc', '~> 1.15'
 gem 'grpc-tools', '~> 1.15'
 gem 'rake', '~> 12.3'
