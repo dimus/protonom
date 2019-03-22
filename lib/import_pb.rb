@@ -42,7 +42,8 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     repeated :common_names, :message, 4, "proto.CommonName"
     repeated :distributions, :message, 5, "proto.Distribution"
     repeated :references, :message, 6, "proto.Reference"
-    optional :metadata, :message, 7, "proto.MetaData"
+    optional :data_provider_id, :string, 7
+    optional :metadata, :message, 8, "proto.MetaData"
   end
   add_message "proto.AcceptedName" do
     optional :name, :message, 1, "proto.Name"
@@ -55,6 +56,21 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     optional :status, :enum, 3, "proto.SynonymStatus"
     optional :comments, :string, 4
     repeated :references, :message, 5, "proto.Reference"
+  end
+  add_message "proto.DataProvider" do
+    optional :id, :string, 1
+    optional :title, :string, 2
+    optional :alias, :string, 3
+    repeated :organization, :string, 4
+    optional :editor, :message, 5, "proto.Person"
+    optional :author, :message, 6, "proto.Person"
+  end
+  add_message "proto.Person" do
+    optional :id, :string, 1
+    optional :orcid, :string, 2
+    optional :name, :string, 3
+    optional :email, :string, 4
+    optional :phone, :string, 5
   end
   add_message "proto.CommonName" do
     optional :id, :string, 1
@@ -97,6 +113,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     oneof :content do
       optional :taxon, :message, 1, "proto.Taxon"
       optional :name_element, :message, 2, "proto.NameElement"
+      optional :data_provider, :message, 3, "proto.DataProvider"
     end
   end
   add_message "proto.ImportStats" do
@@ -142,6 +159,8 @@ module Proto
   Taxon = Google::Protobuf::DescriptorPool.generated_pool.lookup("proto.Taxon").msgclass
   AcceptedName = Google::Protobuf::DescriptorPool.generated_pool.lookup("proto.AcceptedName").msgclass
   Synonym = Google::Protobuf::DescriptorPool.generated_pool.lookup("proto.Synonym").msgclass
+  DataProvider = Google::Protobuf::DescriptorPool.generated_pool.lookup("proto.DataProvider").msgclass
+  Person = Google::Protobuf::DescriptorPool.generated_pool.lookup("proto.Person").msgclass
   CommonName = Google::Protobuf::DescriptorPool.generated_pool.lookup("proto.CommonName").msgclass
   Distribution = Google::Protobuf::DescriptorPool.generated_pool.lookup("proto.Distribution").msgclass
   LinnaeanClassification = Google::Protobuf::DescriptorPool.generated_pool.lookup("proto.LinnaeanClassification").msgclass

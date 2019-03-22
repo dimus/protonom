@@ -8,11 +8,11 @@ module Protonom
                              'dwca_hunter',
                              'itis',
                              'dwca.tar.gz')
+      @data_provider = init_data_provider
       if @renew || !File.exist?(@itis_file)
         @itis = init_itis
         DwcaHunter.process(@itis)
       end
-
       @dwc = DarwinCore.new(@itis_file)
       @name_ranks = %w[Species Subspecies Variety Form Subvariety Subform]
       @taxon_id = 0
@@ -27,6 +27,7 @@ module Protonom
     def each_item
       return enum_for(:each_item) unless block_given?
 
+      yield Proto::ImportInput.new(data_provider: @data_provider)
       data, errors = @dwc.core.read
       data.each do |d|
         next if d[5] != 'valid'
@@ -41,6 +42,7 @@ module Protonom
     def taxon_item(d)
       Proto::Taxon.new(
         id: d[0],
+        data_provider_id: @data_provider.id,
         accepted_name: Proto::AcceptedName.new(name: name_item(d))
       )
     end
@@ -64,6 +66,14 @@ module Protonom
     def init_itis
       itis = DwcaHunter.resources.select { |r| r.new.command == 'itis' }[0]
       itis.new
+    end
+
+    def init_data_provider
+      Proto::DataProvider.new(
+        id: "cefbf4b6-ed2d-41b1-85ac-7a5758e86d57",
+        title: "Integrated Taxonomic Information System (ITIS)",
+        alias: "itis"
+      )
     end
   end
 end

@@ -7,7 +7,7 @@ require_relative 'protonom/itis'
 
 module Protonom
   class Client
-    def initialize(host = '0.0.0.0', port = '8080')
+    def initialize(host = '0.0.0.0', port = '7777')
       @stub = Proto::Harvester::Stub.new("#{host}:#{port}", :this_channel_is_insecure)
     end
 
