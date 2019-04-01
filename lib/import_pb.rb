@@ -24,6 +24,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     optional :variety, :string, 10
     optional :forma, :string, 11
     optional :author_string, :string, 12
+    optional :rank, :string, 13
   end
   add_message "proto.MetaData" do
     optional :is_extinct, :bool, 1

@@ -51,7 +51,8 @@ module Protonom
       Proto::Name.new(
         id: d[0],
         parent_id: d[1],
-        name_string: d[3]
+        name_string: d[3],
+        rank: d[6]
       )
     end
 
@@ -59,7 +60,8 @@ module Protonom
       Proto::NameElement.new(
         id: d[0],
         parent_id: d[1],
-        name_string: d[3]
+        name_string: d[3],
+        rank: d[6]
       )
     end
 
