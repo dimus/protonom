@@ -52,11 +52,13 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     repeated :references, :message, 3, "proto.Reference"
   end
   add_message "proto.Synonym" do
-    optional :name, :message, 1, "proto.Name"
-    optional :type, :enum, 2, "proto.SynonymType"
-    optional :status, :enum, 3, "proto.SynonymStatus"
-    optional :comments, :string, 4
-    repeated :references, :message, 5, "proto.Reference"
+    optional :id, :string, 1
+    optional :accepted_name_id, :string, 2
+    optional :name, :string, 3
+    optional :type, :enum, 4, "proto.SynonymType"
+    optional :status, :enum, 5, "proto.SynonymStatus"
+    optional :comments, :string, 6
+    repeated :references, :message, 7, "proto.Reference"
   end
   add_message "proto.DataProvider" do
     optional :id, :string, 1
@@ -113,8 +115,9 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
   add_message "proto.ImportInput" do
     oneof :content do
       optional :taxon, :message, 1, "proto.Taxon"
-      optional :name_element, :message, 2, "proto.NameElement"
-      optional :data_provider, :message, 3, "proto.DataProvider"
+      optional :synonym, :message, 2, "proto.Synonym"
+      optional :name_element, :message, 3, "proto.NameElement"
+      optional :data_provider, :message, 4, "proto.DataProvider"
     end
   end
   add_message "proto.ImportStats" do

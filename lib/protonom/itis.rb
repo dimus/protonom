@@ -30,11 +30,16 @@ module Protonom
       yield Proto::ImportInput.new(data_provider: @data_provider)
       data, errors = @dwc.core.read
       data.each do |d|
-        next if d[5] != 'valid'
-        if @name_ranks.include?(d[6])
-          yield Proto::ImportInput.new(taxon: taxon_item(d))
+        next if d[5] == 'invalid'
+
+        if ['valid', 'accepted'].include?(d[5])
+          if @name_ranks.include?(d[6])
+            yield Proto::ImportInput.new(taxon: taxon_item(d))
+          else
+            yield Proto::ImportInput.new(name_element: name_element_item(d))
+          end
         else
-          yield Proto::ImportInput.new(name_element: name_element_item(d))
+          yield Proto::ImportInput.new(synonym: synonym_item(d))
         end
       end
     end
@@ -44,6 +49,15 @@ module Protonom
         id: d[0],
         data_provider_id: @data_provider.id,
         accepted_name: Proto::AcceptedName.new(name: name_item(d))
+      )
+    end
+
+    def synonym_item(d)
+      Proto::Synonym.new(
+        id: d[0],
+        accepted_name_id: d[2],
+        name: d[3],
+        comments: [d[5], d[6]].join(", ")
       )
     end
 
